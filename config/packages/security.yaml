@@ -14,6 +14,18 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        login:
+            pattern: ^/api/login
+            stateless: true
+            json_login:
+                check_path: /api/login
+                success_handler: 'App\Security\Authentication\AuthenticationSuccessHandler'
+                failure_handler: 'App\Security\Authentication\AuthenticationFailureHandler'
+        api:
+            pattern: ^/api
+            stateless: true
+            custom_authenticators:
+                - App\Security\Authentication\CustomAuthenticator
         main:
             lazy: true
             provider: app_user_provider
@@ -27,8 +39,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
     security:
