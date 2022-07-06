@@ -17,8 +17,7 @@ class AuthenticationSuccessHandler  implements AuthenticationSuccessHandlerInter
 
     $key = 'example_key';
     $user = [
-      'email' => $user->getUserIdentifier(),
-      'password' => $user->getPassword(),
+      'sub' => $user->getUserIdentifier(),
     ];
 
     $jwt = JWT::encode($user, $key, 'HS256');
