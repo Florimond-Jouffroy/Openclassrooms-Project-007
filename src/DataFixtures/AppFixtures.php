@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Client;
 use App\Entity\Mobile;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
@@ -34,6 +35,13 @@ class AppFixtures extends Fixture
         ->setPrice(mt_rand(260, 400))
         ->setStock(mt_rand(0, 100));
       $manager->persist($mobile);
+
+      $client = new Client;
+      $client
+        ->setEmail('test' . $i . '@bilemo.com')
+        ->setFirstname('prénom' . $i)
+        ->setLastname('Nom' . $i);
+      $manager->persist($client);
     }
 
     $manager->flush();
