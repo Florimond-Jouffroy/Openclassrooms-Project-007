@@ -40,7 +40,8 @@ class AppFixtures extends Fixture
       $client
         ->setEmail('test' . $i . '@bilemo.com')
         ->setFirstname('prénom' . $i)
-        ->setLastname('Nom' . $i);
+        ->setLastname('Nom' . $i)
+        ->setUser($user);
       $manager->persist($client);
     }
 
