@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ClientRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
@@ -17,14 +18,30 @@ class Client
 
   #[ORM\Column(type: 'string', length: 255)]
   #[Groups(["getClients"])]
+  #[Assert\NotBlank(message: "Le prénom du client doit être renseigner !")]
+  #[Assert\Length(
+    min: 2,
+    minMessage: 'Le prénom du client doit faire plus de {{ limit }} caractères !',
+    max: 255,
+    maxMessage: 'Le prénom du client ne doit pas faire plus de {{ limit }} caractères !'
+  )]
   private $firstname;
 
   #[ORM\Column(type: 'string', length: 255)]
   #[Groups(["getClients"])]
+  #[Assert\NotBlank(message: "Le nom du client doit être renseigner !")]
+  #[Assert\Length(
+    min: 2,
+    minMessage: 'Le nom du client doit faire plus de {{ limit }} caractères !',
+    max: 255,
+    maxMessage: 'Le nom du client ne doit pas faire plus de {{ limit }} caractères !'
+  )]
   private $lastname;
 
   #[ORM\Column(type: 'string', length: 255)]
   #[Groups(["getClients"])]
+  #[Assert\NotBlank(message: 'l\'email doit etre renseigner !')]
+  #[Assert\Email(message: 'l\'email {{ value }} n\'est pas valide !')]
   private $email;
 
   #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'clients')]
