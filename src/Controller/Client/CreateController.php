@@ -5,22 +5,29 @@ namespace App\Controller\Client;
 use App\Entity\Client;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 class CreateController extends AbstractController
 {
 
   #[Route('/api/clients', name: "client_create", methods: ['POST'])]
-  public function createClient(Request $request, SerializerInterface $serializer, EntityManagerInterface $em, UrlGeneratorInterface $urlGenerator)
+  public function createClient(Request $request, SerializerInterface $serializer, EntityManagerInterface $em, UrlGeneratorInterface $urlGenerator, ValidatorInterface $validator)
   {
     /** @var Client */
     $client = $serializer->deserialize($request->getContent(), Client::class, 'json');
     $client->setUser($this->getUser());
+
+    $errors = $validator->validate($client);
+
+    if ($errors->count() > 0) {
+      return new JsonResponse($serializer->serialize($errors, 'json'), JsonResponse::HTTP_BAD_REQUEST);
+    }
 
     $em->persist($client);
     $em->flush();
