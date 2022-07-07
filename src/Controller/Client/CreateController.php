@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 class CreateController extends AbstractController
 {
 
-  #[Route('/api/clients', name: "clients_create", methods: ['POST'])]
+  #[Route('/api/clients', name: "client_create", methods: ['POST'])]
   public function createClient(Request $request, SerializerInterface $serializer, EntityManagerInterface $em, UrlGeneratorInterface $urlGenerator)
   {
     /** @var Client */
