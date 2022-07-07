@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ShowController extends AbstractController
 {
-  #[Route('/api/mobile/{id}', name: 'mobile_show', methods: ['GET'])]
+  #[Route('/api/mobiles/{id}', name: 'mobile_show', methods: ['GET'])]
   public function getMobile(Mobile $mobile, SerializerInterface $serializer)
   {
     $jsonMobile = $serializer->serialize($mobile, 'json');
