@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\SerializerInterface;
+use JMS\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,20 +26,26 @@ class UpdateController extends AbstractController
       return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
     }
 
-    $updateClient = $serializer->deserialize(
-      $request->getContent(),
-      Client::class,
-      'json',
-      [AbstractNormalizer::OBJECT_TO_POPULATE => $currentClient]
-    );
+    /** @var Client */
+    $newClient = $serializer->deserialize($request->getContent(), Client::class, 'json');
 
-    $errors = $validator->validate($updateClient);
+    if ($newClient->getFirstname() !== null) {
+      $currentClient->setFirstname($newClient->getFirstname());
+    }
+    if ($newClient->getLastname() !== null) {
+      $currentClient->setLastname($newClient->getLastname());
+    }
+    if ($newClient->getEmail() !== null) {
+      $currentClient->setEmail($newClient->getEmail());
+    }
+
+    $errors = $validator->validate($currentClient);
 
     if ($errors->count() > 0) {
       return new JsonResponse($serializer->serialize($errors, 'json'), JsonResponse::HTTP_BAD_REQUEST);
     }
 
-    $em->persist($updateClient);
+    $em->persist($currentClient);
     $em->flush();
 
     return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);

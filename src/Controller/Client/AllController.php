@@ -3,11 +3,12 @@
 namespace App\Controller\Client;
 
 use App\Entity\User;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use JMS\Serializer\SerializerInterface;
+use JMS\Serializer\SerializationContext;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AllController extends AbstractController
 {
@@ -18,7 +19,8 @@ class AllController extends AbstractController
     /** @var User */
     $user = $this->getUser();
     $clientList = $user->getClients();
-    $jsonClientList = $serializer->serialize($clientList, 'json', ['groups' => 'getClients']);
+    $context = SerializationContext::create()->setGroups(['getClients']);
+    $jsonClientList = $serializer->serialize($clientList, 'json', $context);
 
     return new JsonResponse($jsonClientList, Response::HTTP_OK, [], true);
   }
