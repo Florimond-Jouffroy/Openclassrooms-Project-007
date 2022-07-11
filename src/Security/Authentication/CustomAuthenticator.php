@@ -18,14 +18,19 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 
 class CustomAuthenticator implements AuthenticatorInterface
 {
+
+  public function __construct(private string $jwtSecret)
+  {
+  }
+
   public function supports(Request $request): ?bool
   {
-    return $request->headers->has('token');
+    return $request->headers->has('Authorization');
   }
 
   public function authenticate(Request $request) /*: Passport;*/
   {
-    $tokenHeader = $request->headers->get('token');
+    $tokenHeader = $request->headers->get('Authorization');
 
     if (null === $tokenHeader or "" === $tokenHeader) {
       throw new CustomUserMessageAuthenticationException('No API token provided');
@@ -33,8 +38,8 @@ class CustomAuthenticator implements AuthenticatorInterface
 
     $tokenData = str_replace('Bearer ', '', $tokenHeader);
 
-    $key = 'example_key';
-    $token = JWT::decode($tokenData, new Key($key, 'HS256'));
+
+    $token = JWT::decode($tokenData, new Key($this->jwtSecret, 'HS256'));
 
     $email = $token->sub;
 
