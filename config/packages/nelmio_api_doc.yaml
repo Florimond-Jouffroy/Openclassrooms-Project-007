@@ -2,7 +2,7 @@ nelmio_api_doc:
   documentation:
         info:
             title: BileMo
-                description: Une API d'OpenClassrooms avec des Téléphones, et vos clients !
+            description: 'Une API OpenClassrooms avec des Téléphones, et vos clients !'
             version: 1.0.0
         paths:
             /api/login:
@@ -10,16 +10,16 @@ nelmio_api_doc:
                     tags:
                         - Token
                 operationId: postCredentialsItem
-                  summary: Permet d'obtenir le token  pour se logger.
+                summary: 'Permet d''obtenir le token  pour se logger.'
                 requestBody:
                     description: Crée un nouveau token
-                        content:
-                            application/json:
-                                schema:
-                                  $ref: '#/components/schemas/Credentials'
+                    content:
+                      application/json:
+                        schema:
+                          $ref: '#/components/schemas/Credentials'
                 responses:
                     '200':
-                        description: Récupère le token
+                        description: 'Récupère le token'
                         content:
                             application/json:
                                 schema:
