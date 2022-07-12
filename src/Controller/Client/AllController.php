@@ -13,10 +13,57 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 
 class AllController extends AbstractController
 {
 
+  /**
+   * Cette méthode permet de récupérer l'ensemble des clients liée à vote compte.
+   *
+   * @OA\Response(
+   *     response=200,
+   *     description="Retourne la liste des clients",
+   *     @OA\JsonContent(
+   *        type="array",
+   *        @OA\Items(ref=@Model(type=Client::class, groups={"getClients"}))
+   *     )
+   * )
+   * @OA\Parameter(
+   *     name="page",
+   *     in="query",
+   *     description="La page que l'on veut récupérer",
+   *     @OA\Schema(type="int")
+   * )
+   *
+   * @OA\Parameter(
+   *     name="limit",
+   *     in="query",
+   *     description="Le nombre d'éléments que l'on veut récupérer",
+   *     @OA\Schema(type="int")
+   * )
+   *
+   * @OA\Response(
+   *     response = 401,
+   *     description = "Vous devez utiliser un token valide pour compléter cette demande"
+   * )
+   *
+   *  @OA\Response(
+   *     response = 403,
+   *     description = "Accès interdit à ce contenu"
+   * )
+   *
+   *
+   * @OA\Tag(name="Client")
+   *
+   * @param ClientRepository $clientRepository
+   * @param SerializerInterface $serializer
+   * @param Request $request
+   * @param TagAwareCacheInterface $cache
+   * @return JsonResponse
+   */
   #[Route('/api/clients', name: 'client_all', methods: ['GET'])]
   public function getAllClients(SerializerInterface $serializer, Request $request, ClientRepository $clientRepository, TagAwareCacheInterface $cache): JsonResponse
   {
