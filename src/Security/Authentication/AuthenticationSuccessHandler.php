@@ -11,16 +11,20 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
 
 class AuthenticationSuccessHandler  implements AuthenticationSuccessHandlerInterface
 {
+  public function __construct(private string $jwtSecret)
+  {
+  }
   public function onAuthenticationSuccess(Request $request, TokenInterface $token): JsonResponse
   {
+
     $user = $token->getUser();
 
-    $key = 'example_key';
+
     $user = [
       'sub' => $user->getUserIdentifier(),
     ];
 
-    $jwt = JWT::encode($user, $key, 'HS256');
+    $jwt = JWT::encode($user, $this->jwtSecret, 'HS256');
 
     $now = new DateTime();
     $expires = $now->modify('+ 15 minutes')->getTimestamp();
