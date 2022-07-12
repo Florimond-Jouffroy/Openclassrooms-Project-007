@@ -20,7 +20,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
       ];
     } else {
       $data = [
-        'satatus' => 500,
+        'status' => 500,
         'message' => $exception->getMessage()
       ];
     }
