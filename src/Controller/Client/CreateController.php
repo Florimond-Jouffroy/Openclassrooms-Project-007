@@ -13,9 +13,60 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
 
 class CreateController extends AbstractController
 {
+  /**
+   * Cette méthode permet de créer un client liée à votre compte.
+   *
+   * @OA\Response(
+   *     response=201,
+   *     description="Le client a bien été ajouter!",
+   *     @OA\JsonContent(
+   *        type="array",
+   *        @OA\Items(ref=@Model(type=Client::class, groups={"getClients"}))
+   *     )
+   * )
+   * @OA\RequestBody(
+   *    required=true,
+   *    @OA\MediaType(
+   *        mediaType="application/json",
+   *        @OA\Schema(
+   *            @OA\Property(property="firstname", type="string", example="Jhon"),
+   *            @OA\Property(property="lastname", type="string", example="Doe"),
+   *            @OA\Property(property="email", type="string",format="email", example="jhon.doe@bilemo.com")
+   *       )
+   *    )
+   * )
+   *
+   * @OA\Response(
+   *     response = 400,
+   *     description = "Mauvaises données envoyées, vérifiez les champs et réessayez"
+   * )
+   *
+   * @OA\Response(
+   *     response = 401,
+   *     description = "Vous devez utiliser un token valide pour compléter cette demande"
+   * )
+   *
+   *  @OA\Response(
+   *     response = 403,
+   *     description = "Accès interdit à ce contenu"
+   * )
+   *
+   *
+   * @OA\Tag(name="Client")
+   *
+   * @param SerializerInterface $serializer
+   * @param Request $request
+   * @param EntityManagerInterface $em
+   * @param UrlGeneratorInterface $urlGenerator
+   * @param ValidatorInterface $validator
+   * @return JsonResponse
+   */
   #[Route('/api/clients', name: "client_create", methods: ['POST'])]
   public function createClient(
     Request $request,
@@ -23,7 +74,7 @@ class CreateController extends AbstractController
     EntityManagerInterface $em,
     UrlGeneratorInterface $urlGenerator,
     ValidatorInterface $validator
-  ) {
+  ): JsonResponse {
 
     /** @var Client */
     $client = $serializer->deserialize($request->getContent(), Client::class, 'json');
