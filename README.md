@@ -49,4 +49,4 @@ Project 7 - API REST BileMo - OCR
 
 <h3>Vous êtes fin prêt pour tester votre API!</h3>
 <p>- Pour afficher la doucmentation en ligne et tester l'API rendez-vous à l'adresse suivante : http://localhost:8000/api/doc <em></em></p>
-<p>- Pour pouvoir tester les routes vous pouvez indiquer le Bearer dans Authorize</p>
+<p>- Pour pouvoir tester les routes vous pouvez indiquer le Bearer dans Authorize !</p>
