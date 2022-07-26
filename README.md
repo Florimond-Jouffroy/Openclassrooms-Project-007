@@ -37,7 +37,6 @@ Project 7 - API REST BileMo - OCR
   - Pour cela vous devez vous rendre sur la route suivante avec Postman
   http://localhost:8000/api/login en methode POST, avec les paramètres d'exemple suivant :
 
-
   <pre><code>
   {
     "username": "admin@bilemo.com",
