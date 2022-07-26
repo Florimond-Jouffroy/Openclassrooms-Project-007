@@ -1,8 +1,6 @@
 # BileMo
 Project 7 - API REST BileMo - OCR
 
-<h3>Documentation</h3>
-<p>L'ensemble du code source a été commenté. L'utilsation de PhpDocBlocker a permis de générer une documentation claire et précise.</p>
 <h3>Langage de programmation</h3>
 
 <li>L'API REST BileMo a été développé en PHP via le framework Symfony 5.4</li>
@@ -13,7 +11,7 @@ Project 7 - API REST BileMo - OCR
 <h3>Environnement nécessaire</h3>
 <ul>
   <li>Symfony 5.4.*</li>
-  <li>PHP 7.2.*</li>
+  <li>PHP 8.*</li>
   <li>MySql 8</li>
 </ul>
 <h3>Suivre les étapes suivantes :</h3>
@@ -21,7 +19,7 @@ Project 7 - API REST BileMo - OCR
   <li><b>Etape 1.1 :</b> Cloner le repository suivant depuis votre terminal :</li>
   <pre>
   <code>git clone https://github.com/Florimond-Jouffroy/Openclassrooms-Project-007.git</code></pre>
-  <li>
+
    <li><b>Etape 1.2 :</b> Executer la commande suivante :</li>
   <pre>
   <code>composer install</code></pre>
@@ -36,12 +34,19 @@ Project 7 - API REST BileMo - OCR
   </code></pre>
 
 
-  <li><b>Etape 5 :</b>Le compte par défault est "admin@bilemo.com" avec pour mot de passe "admin"
-  </li>
-  <li>Vous pouvez utiliser jeton bearer suivant : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBiaWxlbW8uY29tIn0.3khGFoAuoZT8tSbs5puJ2YisK_jpyCFf-0seRSyuQ6U</li>
+  <li><b>Etape 5 :</b> Récupérer votre jeton Bearer</li>
+  - Pour cela vous devez vous rendre sur la route suivante avec Postman
+  http://localhost:8000/api/login en methode POST, avec les paramètres d'exemple suivant :
+  <pre><code>
+  {
+    "username": "admin@bilemo.com",
+    "password": "admin"
+  }
+  </code></pre>
 
 </pre>
 </ul>
 
 <h3>Vous êtes fin prêt pour tester votre API!</h3>
-<p>Pour afficher la doucmentation en ligne et tester l'API rendez-vous à l'adresse suivante : http://localhost:8000/api/doc <em></em></p>
+<p>- Pour afficher la doucmentation en ligne et tester l'API rendez-vous à l'adresse suivante : http://localhost:8000/api/doc <em></em></p>
+<p>- Pour pouvoir tester les routes vous pouvez indiquer le Bearer dans Authorize</p>
