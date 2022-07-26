@@ -38,10 +38,17 @@ Project 7 - API REST BileMo - OCR
 
   <li><b>Etape 5 :</b>Le compte par défault est "admin@bilemo.com" avec pour mot de passe "admin"
   </li>
-  <li>Vous pouvez utiliser jeton bearer suivant : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBiaWxlbW8uY29tIn0.3khGFoAuoZT8tSbs5puJ2YisK_jpyCFf-0seRSyuQ6U</li>
+  <li>Pour avoir votre jeton Bearer  vous pouvez vous rendre sur la route http://localhost:8000/api/login avec postman en methode POST en passant en paramettres :</li>
+  <pre><code>
+  {
+    "username": "admin@bilemo.com",
+    "password": "admin"
+  }
+  </code></pre>
 
 </pre>
 </ul>
 
 <h3>Vous êtes fin prêt pour tester votre API!</h3>
 <p>Pour afficher la doucmentation en ligne et tester l'API rendez-vous à l'adresse suivante : http://localhost:8000/api/doc <em></em></p>
+<p>Pour pouvoir tester les routes vous pouvez indiquer le Bearer dans Authorize</p>
