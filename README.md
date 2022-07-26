@@ -33,10 +33,11 @@ Project 7 - API REST BileMo - OCR
     symfony console doctrine:fixtures:load
   </code></pre>
 
-
   <li><b>Etape 5 :</b> Récupérer votre jeton Bearer</li>
   - Pour cela vous devez vous rendre sur la route suivante avec Postman
   http://localhost:8000/api/login en methode POST, avec les paramètres d'exemple suivant :
+
+
   <pre><code>
   {
     "username": "admin@bilemo.com",
@@ -48,5 +49,6 @@ Project 7 - API REST BileMo - OCR
 </ul>
 
 <h3>Vous êtes fin prêt pour tester votre API!</h3>
+
 <p>- Pour afficher la doucmentation en ligne et tester l'API rendez-vous à l'adresse suivante : http://localhost:8000/api/doc <em></em></p>
 <p>- Pour pouvoir tester les routes vous pouvez indiquer le Bearer dans Authorize !</p>
